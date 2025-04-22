@@ -41,35 +41,35 @@ Your job is to fix it!
 // ============================================
 // 🐞 Initial Code with Bugs (to be debugged)
 // ============================================
+const readline = require('readline-sync'); // Importing readline-sync for user input
+let animals = []; // Array to store animal names
+let fees = []; // Array to store adoption fees
 
-let animals = [];
-let fees = [];
-
-function addAnimal(name, fee) {
-    if (!name || fee < 0) {
-        throw new Error("Invalid animal name or adoption fee!");
+function addAnimal(name, fee) {    // Function to add an animal and its fee
+    if (!name || isNaN(fee)< 0 || fee < 0) { // Check if name is empty or fee is negative
+        throw new Error("Invalid animal name or adoption fee!"); // Throw an error if invalid
     }
-    animals.push(name);
-    fees.push(fee);
+    animals.push(name); // Add animal name to the array
+    fees.push(fee); // Add fee to the array
 }
 
-function getAdoptionFee(animalName) {
-    let index = animals.indexOf(animalName);
+function getAdoptionFee(animalName) {   // Function to get the adoption fee for a specific animal
+    let index = animals.indexOf(animalName); // Find the index of the animal in the array
     if (index === -1) {
-        throw new Error("Animal not found in records!");
+        throw new Error("Animal not found in records!"); // Throw an error if animal is not found
     }
-    return fees[index];
+    return fees[index]; // Return the fee for the animal
 }
 
 // ============================================
 // 🚀 Main Program Logic
 // ============================================
 
-console.log("Welcome to the Pet Shelter System");
+console.log("Welcome to the Pet Shelter System"); // Welcome message
 
 while (true) {
     try {
-        let action = prompt("Choose an action: 'add', 'fee', or 'exit': ").toLowerCase();
+        let action = readline.question("Choose an action: 'add', 'fee', or 'exit': ").toLowerCase();
 
         if (action === "exit") {
             console.log("Goodbye!");
@@ -77,10 +77,10 @@ while (true) {
         }
 
         if (action === "add") {
-            let animal = prompt("Enter the animal's name: ");
-            let fee = Number(prompt("Enter the adoption fee: "));
-
             try {
+                let animal = readline.question("Enter the animal's name: ");
+                let fee = Number(readline.question("Enter the adoption fee: "));
+
                 addAnimal(animal, fee);
                 console.log(`${animal} added with a fee of $${fee}.`);
             } catch (err) {
@@ -88,9 +88,8 @@ while (true) {
             }
 
         } else if (action === "fee") {
-            let animal = prompt("Enter the animal's name to find its adoption fee: ");
-
             try {
+                let animal = readline.question("Enter the animal's name to find its adoption fee: ");
                 let fee = getAdoptionFee(animal);
                 console.log(`${animal}'s adoption fee is $${fee}.`);
             } catch (err) {
